@@ -21,8 +21,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div>
           <Header updateSearch={this.updateSearch}/>
+        </div>
+        <div>
           <Popular searchTerm={this.state.searchTerm}/>
+        </div>
       </div>
     );
   }
