@@ -43,3 +43,27 @@ export function itemsFetchData(url) {
             .catch(() => dispatch(itemsHasErrored(true)));
     };
 }
+
+export function searchParameter(searchTerm) {
+    return {
+        type: 'SEARCH_MOVIE',
+        searchTerm
+    };
+}
+
+export function sortAsPerRating(sortParam) {
+    return {
+        type: 'SORT_RATING',
+        sortParam
+    };
+}
+
+export function sortAsPerYear(sortParam) {  
+    return {
+        type: 'SORT_YEAR',
+        sortParam
+    };
+}
+
+
+

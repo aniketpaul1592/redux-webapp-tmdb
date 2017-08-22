@@ -67,4 +67,14 @@ a:-webkit-any-link {
   object-fit:cover;
 }
 
+.sortRating{
+  float:left;
+  width:25%;
+  margin-right: 15;
+}
+
+.Select-clear{
+  float:right;
+}
+
 

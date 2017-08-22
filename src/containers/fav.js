@@ -5,7 +5,7 @@ class Fav extends Component{
 	render(){
 		return(
 			<div>
-				<Header/>
+				<Header updateSearch={this.updateSearch}/>
 				<h2>Fav JS</h2>
 			</div>
 		);
