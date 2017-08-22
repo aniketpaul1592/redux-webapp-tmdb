@@ -17,45 +17,60 @@ export function itemsIsLoading(state = false, action) {
 
 function sortData(list,sortParam){
     var decidingFactor = "";
-    if(sortParam){
+    if(sortParam != " "){
         if(sortParam == "rLow"||sortParam =="rHigh"){//Based on rating
-        var temp = list.sort(function(a,b){
-            var dataA =  parseInt(a.vote_count);
-            var dataB =  parseInt(b.vote_count);
-            return dataA - dataB;
-        });
-    }else if (sortParam == "pLow"||sortParam =="pHigh"){// Based on Popularity
-        var temp = list.sort(function(a,b){
-            var dataA =  parseInt(a.popularity);
-            var dataB =  parseInt(b.popularity);
-
-            return dataA - dataB;
-        });
-    }else{//Based on year
-        var temp = list.filter(function(item){
-            var tempDate = item.release_date.split("-");
-            return tempDate[0] == sortParam;
-        });
+            var temp = list.sort(function(a,b){
+                var dataA =  parseInt(a.vote_count);
+                var dataB =  parseInt(b.vote_count);
+                if(sortParam == "rLow"){
+                  return dataA - dataB;  
+                }
+                else if(sortParam == "rHigh"){
+                  return dataB - dataA;  
+                }
+                
+            });
+         }else if (sortParam == "pLow"||sortParam =="pHigh"){// Based on Popularity
+            var temp = list.sort(function(a,b){
+                var dataA =  parseInt(a.popularity);
+                var dataB =  parseInt(b.popularity);
+                if(sortParam == "pLow"){
+                  return dataA - dataB;  
+                }
+                else if(sortParam == "pHigh"){
+                  return dataB - dataA;  
+                }
+            });
+        }else{//Based on year
+            var temp = list.filter(function(item){
+                var tempDate = item.release_date.split("-");
+                return tempDate[0] == sortParam;
+            });
+        }
+        
+        return temp;
     }
-     return temp;
-}
-    return list;
-   
+    return list;   
 }
 
 export function items(state = [], action) {
     switch (action.type) {
         case 'ITEMS_FETCH_DATA_SUCCESS':
-            return action.items;
+            return action.items; break;
         case 'SORT_RATING':
             return Object.assign({}, state, {
                       didInvalidate: true,
-                      filtered:sortData(state.results,action.sortParam)
-                    });
 
+                      sorted:sortData(state.results,action.sortParam)
+                    });
+            break;
             //return {state.items.results: sortData(state.items.results,action.sortParam)};
-        // case 'SORT_YEAR':
-        //     return {action.items: sortData(action.items,action.sortParam)};
+        case 'SORT_YEAR':
+            return Object.assign({}, state, {
+                      didInvalidate: true,
+                      
+                      filtered:sortData(state.results,action.sortParam)
+                    }); break;
         default:
             return state;
     }

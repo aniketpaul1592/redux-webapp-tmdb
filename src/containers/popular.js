@@ -23,6 +23,9 @@ class Popular extends Component{
 		this.setState({sortRate:val});
 		if(val){
 			this.props.sortRating(val.value);
+		}else{
+			var str = " ";
+			this.props.sortRating(str);
 		}
 		
   		//console.log("Selected: " + val.value);
@@ -31,7 +34,11 @@ class Popular extends Component{
 	logChangeYear(val) {
 		this.setState({sortYear:val});
 		//this.props.sortYear(val.value);
-  		console.log(typeof val.value);
+		if(val){
+			this.props.sortYear(val.value);
+			console.log(typeof val.value);
+		}
+  		
 	}
 
  	componentDidMount() {
@@ -101,7 +108,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchData: (url) => dispatch(itemsFetchData(url)),
        sortRating: (val) => dispatch(sortAsPerRating(val)),
-       //sortYear: (val) => dispatch(sortAsPerYear(val)),
+       sortYear: (val) => dispatch(sortAsPerYear(val)),
     };
 };
 
