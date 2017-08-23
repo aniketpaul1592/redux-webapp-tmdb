@@ -22,7 +22,7 @@ class Header extends Component{
 	render(){
 		return(
 		<div className="headerLayoutApp">
-		<Link to="/"><img src={logo} className="logo" align="left"/></Link>     
+		<Link to="/"><img src={logo} className="logo" alt ="" align="left"/></Link>     
           <div className = "shiftRight">
           	<Link to="/" style = {marginSpace}>Popular</Link>
           	<Link to="/favorite" style = {marginSpace}>Favourites</Link>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Card from './myCard';
 import {connect} from 'react-redux';
-import {itemsFetchData,sortAsPerRating,sortAsPerYear} from '../actions/actionCreator';
+import {itemsFetchData,sortAsPerRatingYear,updateYear,updateRatings} from '../actions/actionCreator';
 import Select from 'react-select';
 
 const marginSpace = {
@@ -12,39 +12,32 @@ class Popular extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			sortRate : "",
-			sortYear : "",
+			sortRate:"",
+			sortYear:""
 		}
-		this.logChange = this.logChange.bind(this)	
-		this.logChangeYear = this.logChangeYear.bind(this)	
+		this.getRatings = this.getRatings.bind(this)	
+		this.getYear = this.getYear.bind(this)	
 	}
 
-	logChange(val) {
+	getRatings(val) {
 		this.setState({sortRate:val});
-		if(val){
-			this.props.sortRating(val.value);
-		}else{
-			var str = " ";
-			this.props.sortRating(str);
-		}
-		
-  		//console.log("Selected: " + val.value);
+		this.props.updateRatings(val.value);
+		this.props.sortAsPerRatingYear(); 
 	}
 
-	logChangeYear(val) {
+	getYear(val) {
 		this.setState({sortYear:val});
-		//this.props.sortYear(val.value);
-		if(val){
-			this.props.sortYear(val.value);
-			console.log(typeof val.value);
-		}
-  		
+		this.props.updateYear(val.value);
+		this.props.sortAsPerRatingYear(); 
 	}
 
  	componentDidMount() {
         this.props.fetchData('https://api.themoviedb.org/3/movie/popular?api_key=784269b0ba4570888b9d1299897c4846&language=en-US');
-        // this.props.sortRating(this.state.sortRate);
-        // this.props.sortYear(this.state.sortYear);
+    }
+
+    componentWillReceiveProps(nextProps) { 
+    	console.log(nextProps);
+    // 	nextProps.sortAsPerRatingYear(nextState);  
     }
 
 	render(){
@@ -72,21 +65,19 @@ class Popular extends Component{
 			});
 		}
 
-		// console.log(options);
-
 		return(
 		<div>
 			<Select className = "sortRating"
 			   name="form-field-name"
 			   value={this.state.sortRate}
 			   options={optionsRater}
-			   onChange={this.logChange}
+			   onChange={this.getRatings}
 			/>
 			<Select className = "sortRating"
 			   name="form-field-name"
 			   value={this.state.sortYear}
 			   options={optionsYear}
-			   onChange={this.logChangeYear}
+			   onChange={this.getYear}
 			/>
 			<Card data={this.props.movieData.results} searchTermVal = {this.props.searchTerm}/>	
         </div>
@@ -100,15 +91,18 @@ function mapStateToProps(state){
 		movieData: state.items,
 		searchTerm : state.searchTerm,
         hasErrored: state.itemsHasErrored,
-        isLoading: state.itemsIsLoading
+        isLoading: state.itemsIsLoading,
+        sortRate: state.sortRate,
+        sortYear: state.sortYear
 	};
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchData: (url) => dispatch(itemsFetchData(url)),
-       sortRating: (val) => dispatch(sortAsPerRating(val)),
-       sortYear: (val) => dispatch(sortAsPerYear(val)),
+       	sortAsPerRatingYear: () => dispatch(sortAsPerRatingYear()),
+       	updateRatings:(ratings) => dispatch(updateRatings(ratings)),
+       	updateYear:(year) => dispatch(updateYear(year)),
     };
 };
 

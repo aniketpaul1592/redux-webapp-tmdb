@@ -51,17 +51,24 @@ export function searchParameter(searchTerm) {
     };
 }
 
-export function sortAsPerRating(sortParam) {
+export function sortAsPerRatingYear() {
     return {
-        type: 'SORT_RATING',
-        sortParam
+        type: 'SORT_RATING_AND_YEAR'
     };
 }
 
-export function sortAsPerYear(sortParam) {  
+export function updateYear(year) {  
     return {
-        type: 'SORT_YEAR',
-        sortParam
+        type: 'SET_STATE_YEAR',
+        year
+    };
+}
+
+export function updateRatings(ratings) { 
+    console.log(ratings); 
+    return {
+        type: 'SET_STATE_RATINGS',
+        ratings
     };
 }
 

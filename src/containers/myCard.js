@@ -26,7 +26,7 @@ class Card extends Component{
 			{console.log(this.props.searchTermVal)}
 			{this.props.data.filter(isSearchTerm(this.props.searchTermVal)).map(item=>
 				<div key={item.id} className="paddingCard">
-					<div className="poster"><img src = {"https://image.tmdb.org/t/p/w300/"+item.poster_path} /></div>
+					<div className="poster"><img src = {"https://image.tmdb.org/t/p/w300/"+item.poster_path} alt=""/></div>
 					<span>{item.title}</span>
 					<FontAwesome name='facebook-official'/>
 					<FontAwesome name='whatsapp'/>
