@@ -56,7 +56,12 @@ function sortData(list,sortParam){
 export function items(state = [], action) {
     switch (action.type) {
         case 'ITEMS_FETCH_DATA_SUCCESS':
-            return action.items; break;
+            return Object.assign({}, state, {
+                      didInvalidate: true,
+
+                      results:action.items.results
+                    }); 
+            break;
         case 'SORT_RATING':
             return Object.assign({}, state, {
                       didInvalidate: true,
