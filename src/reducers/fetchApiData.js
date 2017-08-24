@@ -15,9 +15,71 @@ export function itemsIsLoading(state = false, action) {
     }
 }
 
-function sortData(list,ratings,year){
-    console.log(ratings);
-    console.log(year);
+function sortData(list,sortParam){
+    
+    if(sortParam.sortRate){
+         console.log(sortParam.sortRate);
+    }
+    if(sortParam.sortYear){
+        console.log(sortParam.sortYear);
+    }
+    if(!sortParam.sortYear){
+        console.log("sortYear - undefined");
+    }
+    if(!sortParam.sortRate){
+        console.log("sortRate - undefined");
+    }
+
+   // When both fields are gone 
+    if((!sortParam.sortRate)&&(!sortParam.sortYear)){
+        return [];
+    }else{
+        if(list){
+            var tempArrSort = [];
+            tempArrSort = [...list]; 
+        }
+        var ratingArr = [];
+        var yearArr = [];
+        if(sortParam.sortRate){
+            if(sortParam.sortRate == "rLow"||sortParam.sortRate =="rHigh"){//Based on rating
+                var ratingArr = tempArrSort.sort(function(a,b){
+                    var dataA =  parseInt(a.vote_count);
+                    var dataB =  parseInt(b.vote_count);
+                    if(sortParam.sortRate == "rLow"){
+                      return dataA - dataB;  
+                    }
+                    else if(sortParam.sortRate == "rHigh"){
+                      return dataB - dataA;  
+                    }
+                    
+                });
+            }else if (sortParam.sortRate == "pLow"||sortParam.sortRate =="pHigh"){// Based on Popularity
+                var ratingArr = tempArrSort.sort(function(a,b){
+                    var dataA =  parseInt(a.popularity);
+                    var dataB =  parseInt(b.popularity);
+                    if(sortParam.sortRate == "pLow"){
+                      return dataA - dataB;  
+                    }
+                    else if(sortParam.sortRate == "pHigh"){
+                      return dataB - dataA;  
+                    }
+                });
+            }
+        }
+        if(sortParam.sortYear){
+            var temp = list;
+            if(ratingArr!=[]){
+                temp = ratingArr;
+            }
+            var yearArr = temp.filter(function(item){
+                var tempDate = item.release_date.split("-");
+                return tempDate[0] == sortParam.sortYear;
+            });
+
+            return yearArr; 
+        }  
+       return ratingArr;  
+    }
     // var decidingFactor = "";
     // if(list){
     //    var tempArrSort = [];
@@ -60,7 +122,6 @@ function sortData(list,ratings,year){
 }
 
 export function items(state = [], action) {
-    console.log(state.currRatings);
     switch (action.type) {
         case 'ITEMS_FETCH_DATA_SUCCESS':
             return Object.assign({},state, {
@@ -72,7 +133,7 @@ export function items(state = [], action) {
             return Object.assign({}, state, {
                       didInvalidate: true,
 
-                      sorted:sortData(state.results,state.currRatings,state.currYear)
+                      sorted:sortData(state.results,action.sortParam)
                     });
             break;
         default:

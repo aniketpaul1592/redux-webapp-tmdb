@@ -5,9 +5,7 @@ const allReducers = combineReducers({
 	items, 
 	itemsHasErrored, 
 	itemsIsLoading,
-	searchTerm,
-	currRatings,
-	currYear
+	searchTerm
 });
 
 export default allReducers;
