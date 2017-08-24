@@ -60,6 +60,7 @@ function sortData(list,ratings,year){
 }
 
 export function items(state = [], action) {
+    console.log(state.currRatings);
     switch (action.type) {
         case 'ITEMS_FETCH_DATA_SUCCESS':
             return Object.assign({},state, {

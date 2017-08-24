@@ -12,6 +12,8 @@ class Popular extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
+			ratingLabel:"",
+			yearLabel:"",
 			sortRate:"",
 			sortYear:""
 		}
@@ -20,15 +22,16 @@ class Popular extends Component{
 	}
 
 	getRatings(val) {
-		this.setState({sortRate:val});
+		this.setState({ratingLabel:val});
+		console.log(this.props.sortRate);
 		this.props.updateRatings(val.value);
-		this.props.sortAsPerRatingYear(); 
+		//this.props.sortAsPerRatingYear(val.value); 
 	}
 
 	getYear(val) {
-		this.setState({sortYear:val});
+		this.setState({yearLabel:val});
 		this.props.updateYear(val.value);
-		this.props.sortAsPerRatingYear(); 
+		//this.props.sortAsPerRatingYear(val.value);
 	}
 
  	componentDidMount() {
@@ -36,9 +39,10 @@ class Popular extends Component{
     }
 
     componentWillReceiveProps(nextProps) { 
-    	console.log(nextProps);
-    // 	nextProps.sortAsPerRatingYear(nextState);  
-    }
+    	console.log(nextProps.sortRate);
+    	console.log(nextProps.sortYear);
+    	//nextProps.sortAsPerRatingYear(nextProps.sortRate);  
+     }
 
 	render(){
 		if (!this.props.movieData) { return "Nothing to Display"; }
@@ -64,18 +68,36 @@ class Popular extends Component{
 				}
 			});
 		}
-
+		if(this.props.movieData.sorted){
+			return(
+			<div>
+				<Select className = "sortRating"
+				   name="form-field-name"
+				   value={this.state.ratingLabel}
+				   options={optionsRater}
+				   onChange={this.getRatings}
+				/>
+				<Select className = "sortRating"
+				   name="form-field-name"
+				   value={this.state.yearLabel}
+				   options={optionsYear}
+				   onChange={this.getYear}
+				/>
+				<Card data={this.props.movieData.sorted} searchTermVal = {this.props.searchTerm}/>	
+	        </div>
+			);
+		}
 		return(
 		<div>
 			<Select className = "sortRating"
 			   name="form-field-name"
-			   value={this.state.sortRate}
+			   value={this.state.ratingLabel}
 			   options={optionsRater}
 			   onChange={this.getRatings}
 			/>
 			<Select className = "sortRating"
 			   name="form-field-name"
-			   value={this.state.sortYear}
+			   value={this.state.yearLabel}
 			   options={optionsYear}
 			   onChange={this.getYear}
 			/>
@@ -92,15 +114,15 @@ function mapStateToProps(state){
 		searchTerm : state.searchTerm,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading,
-        sortRate: state.sortRate,
-        sortYear: state.sortYear
+        sortRate: state.currRatings,
+        sortYear: state.currYear
 	};
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchData: (url) => dispatch(itemsFetchData(url)),
-       	sortAsPerRatingYear: () => dispatch(sortAsPerRatingYear()),
+       	sortAsPerRatingYear: (val) => dispatch(sortAsPerRatingYear(val)),
        	updateRatings:(ratings) => dispatch(updateRatings(ratings)),
        	updateYear:(year) => dispatch(updateYear(year)),
     };
