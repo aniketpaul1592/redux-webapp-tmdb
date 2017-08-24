@@ -47,7 +47,7 @@ a:-webkit-any-link {
 }
 
 .container {
-    text-align: left;
+    
     color: black;
     display: block;
     width: 1033px;
@@ -75,6 +75,10 @@ a:-webkit-any-link {
 
 .Select-clear{
   float:right;
+}
+
+.cursorClass {
+  cursor:pointer;
 }
 
 

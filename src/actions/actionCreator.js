@@ -58,5 +58,12 @@ export function sortAsPerRatingYear(sortParam) {
     };
 }
 
+export function fetchFavId(itemId) {
+    return {
+        type: 'SAV_FAVS',
+        itemId
+    };
+}
+
 
 

@@ -68,7 +68,7 @@ function sortData(list,sortParam){
         }
         if(sortParam.sortYear){
             var temp = list;
-            if(ratingArr!=[]){
+            if(ratingArr.length!=0){
                 temp = ratingArr;
             }
             var yearArr = temp.filter(function(item){
@@ -161,6 +161,23 @@ export function currYear(state = '',action){
     switch (action.type) {
         case 'SET_STATE_YEAR':
             return action.year;
+        default:
+            return state;
+    }
+}
+
+function createFavArr(list,itemId){
+    var temp = list;
+    temp.push(itemId);
+    return temp;
+}
+
+export function favArr(state = [],action){
+    switch (action.type) {
+        case 'searchParameter':
+            return Object.assign({}, {
+                      favArr:createFavArr(state,action.itemId)
+                    });
         default:
             return state;
     }

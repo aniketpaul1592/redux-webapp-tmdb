@@ -12,25 +12,50 @@ const marginSpace = {
 class Header extends Component{
 	constructor(props){
 		super(props);
-		this.getSearchTerm = this.getSearchTerm.bind(this)
+		this.state = {
+			flag:0,
+		}
+		this.getSearchTerm = this.getSearchTerm.bind(this);
+		this.showSearchBar = this.showSearchBar.bind(this);
+		this.hideSearchBar = this.hideSearchBar.bind(this);
+	}
+
+	showSearchBar(){
+		this.setState({flag:1});
+	}
+
+	hideSearchBar(){
+		this.setState({flag:0});
 	}
 
 	getSearchTerm(event){
 		//alert('Hello world')
 		this.props.updateSearch(event.target.value)
 	}
-	render(){
-		return(
-		<div className="headerLayoutApp">
-		<Link to="/"><img src={logo} className="logo" alt ="" align="left"/></Link>     
-          <div className = "shiftRight">
-          	<Link to="/" style = {marginSpace}>Popular</Link>
-          	<Link to="/favorite" style = {marginSpace}>Favourites</Link>
-          	<input type = "text" onChange={ this.getSearchTerm }/><FontAwesome name='search'/>
-          </div>
-        </div>
-		);
-	}
+
+render(){
+	if(this.state.flag==1){	
+			return(
+			<div className="headerLayoutApp">
+			<Link to="/"><img src={logo} className="logo cursorClass" alt ="" align="left"/></Link>     
+	          <div className = "shiftRight">
+	          	<input type = "text" onChange={ this.getSearchTerm }/><FontAwesome name='search' className = "cursorClass" onClick = {this.hideSearchBar}/>
+	          </div>
+	        </div>
+			);		
+	}else{
+			return(
+			<div className="headerLayoutApp">
+			<Link to="/"><img src={logo} className="logo cursorClass" alt ="" align="left"/></Link>     
+	          <div className = "shiftRight">
+	          	<Link to="/" style = {marginSpace}>Popular</Link>
+	          	<Link to="/favorite" style = {marginSpace}>Favourites</Link>
+	          	<FontAwesome name='search' className = "cursorClass" onClick = {this.showSearchBar}/>
+	          </div>
+	        </div>
+			);
+		}
+	}	
 }
 
 // Dispatch Action creator
