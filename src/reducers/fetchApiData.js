@@ -166,19 +166,22 @@ export function currYear(state = '',action){
     }
 }
 
-export function favArr(state = {favArr: []},action){
-    console.log(state);
+export function favArr(state = {favArr: [],favArrId:[]},action){
     switch (action.type) {
         case 'SAV_FAVS':
             return {
                 ...state,
-                favArr: [...state.favArr, action.itemId]
+                favArr: [...state.favArr, action.itemId],
+                favArrId: [...state.favArr, action.itemId.id], 
             };break;
         case 'REMOVE_FAVS':
             return {
                 ...state,
                 favArr: [...state.favArr].filter(item=>{
                     return item.id != action.itemId.id
+                }),
+                favArrId: [...state.favArrId].filter(item=>{
+                    return item != action.itemId.id
                 })
             }; break;
         default:

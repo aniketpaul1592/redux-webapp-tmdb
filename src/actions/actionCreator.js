@@ -59,7 +59,6 @@ export function sortAsPerRatingYear(sortParam) {
 }
 
 export function fetchFavId(itemId) {
-    console.log(itemId);
     return {
         type: 'SAV_FAVS',
         itemId
@@ -67,7 +66,6 @@ export function fetchFavId(itemId) {
 }
 
 export function removeFavId(itemId) {
-    console.log(itemId);
     return {
         type: 'REMOVE_FAVS',
         itemId
