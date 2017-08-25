@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
-import Fav from './containers/fav';
+import Fav from './components/Favourites';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'react-redux';
 import {Switch,Route,BrowserRouter} from 'react-router-dom';

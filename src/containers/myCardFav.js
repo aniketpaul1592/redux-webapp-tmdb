@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './container.css';
-import SingleCard from './SingleCard'
+import SingleCardFav from './SingleCardFav'
 
 var count =0;
 
@@ -10,11 +10,11 @@ function isSearchTerm(searchItem){
 		}	
 }
 
-class Card extends Component{
+class FavCard extends Component{
 	constructor(props){
 		super(props);
 	}
-
+	
 	render(){
 		if (this.props.hasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
@@ -22,12 +22,12 @@ class Card extends Component{
         if (this.props.isLoading) {
             return <p>Loading…</p>;
         }
-        if (!this.props.data) { return null; }
+        if (this.props.data.length == 0) { return null; }
 		return(
 			<div className="container">
 			{console.log(this.props.searchTermVal)}
 			{this.props.data.filter(isSearchTerm(this.props.searchTermVal)).map(item=>
-				<SingleCard item={item} />
+				<SingleCardFav item={item} />
 			)}
 			</div>
 		);
@@ -45,4 +45,4 @@ class Card extends Component{
 // }
 
 
-export default Card;
+export default FavCard;
