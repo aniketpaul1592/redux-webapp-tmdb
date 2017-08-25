@@ -18,16 +18,16 @@ export function itemsIsLoading(state = false, action) {
 function sortData(list,sortParam){
     
     if(sortParam.sortRate){
-         console.log(sortParam.sortRate);
+         //console.log(sortParam.sortRate);
     }
     if(sortParam.sortYear){
-        console.log(sortParam.sortYear);
+        //console.log(sortParam.sortYear);
     }
     if(!sortParam.sortYear){
-        console.log("sortYear - undefined");
+        //console.log("sortYear - undefined");
     }
     if(!sortParam.sortRate){
-        console.log("sortRate - undefined");
+        //console.log("sortRate - undefined");
     }
 
    // When both fields are gone 
@@ -41,26 +41,26 @@ function sortData(list,sortParam){
         var ratingArr = [];
         var yearArr = [];
         if(sortParam.sortRate){
-            if(sortParam.sortRate == "rLow"||sortParam.sortRate =="rHigh"){//Based on rating
-                var ratingArr = tempArrSort.sort(function(a,b){
+            if(sortParam.sortRate === "rLow"||sortParam.sortRate ==="rHigh"){//Based on rating
+                    ratingArr = tempArrSort.sort(function(a,b){
                     var dataA =  parseInt(a.vote_count);
                     var dataB =  parseInt(b.vote_count);
-                    if(sortParam.sortRate == "rLow"){
+                    if(sortParam.sortRate === "rLow"){
                       return dataA - dataB;  
                     }
-                    else if(sortParam.sortRate == "rHigh"){
+                    else if(sortParam.sortRate === "rHigh"){
                       return dataB - dataA;  
                     }
                     
                 });
-            }else if (sortParam.sortRate == "pLow"||sortParam.sortRate =="pHigh"){// Based on Popularity
-                var ratingArr = tempArrSort.sort(function(a,b){
+            }else if (sortParam.sortRate === "pLow"||sortParam.sortRate ==="pHigh"){// Based on Popularity
+                    ratingArr = tempArrSort.sort(function(a,b){
                     var dataA =  parseInt(a.popularity);
                     var dataB =  parseInt(b.popularity);
-                    if(sortParam.sortRate == "pLow"){
+                    if(sortParam.sortRate === "pLow"){
                       return dataA - dataB;  
                     }
-                    else if(sortParam.sortRate == "pHigh"){
+                    else if(sortParam.sortRate === "pHigh"){
                       return dataB - dataA;  
                     }
                 });
@@ -68,12 +68,12 @@ function sortData(list,sortParam){
         }
         if(sortParam.sortYear){
             var temp = list;
-            if(ratingArr.length!=0){
+            if(ratingArr.length!==0){
                 temp = ratingArr;
             }
-            var yearArr = temp.filter(function(item){
+            yearArr = temp.filter(function(item){
                 var tempDate = item.release_date.split("-");
-                return tempDate[0] == sortParam.sortYear;
+                return tempDate[0] === sortParam.sortYear;
             });
 
             return yearArr; 
@@ -85,40 +85,40 @@ function sortData(list,sortParam){
     //    var tempArrSort = [];
     //    tempArrSort = [...list]; 
     // }    
-    // if(ratings != ""){
-    //     if(sortParam == "rLow"||sortParam =="rHigh"){//Based on rating
+    // if(ratings !== ""){
+    //     if(sortParam === "rLow"||sortParam ==="rHigh"){//Based on rating
     //         var temp = tempArrSort.sort(function(a,b){
     //             var dataA =  parseInt(a.vote_count);
     //             var dataB =  parseInt(b.vote_count);
-    //             if(sortParam == "rLow"){
+    //             if(sortParam === "rLow"){
     //               return dataA - dataB;  
     //             }
-    //             else if(sortParam == "rHigh"){
+    //             else if(sortParam === "rHigh"){
     //               return dataB - dataA;  
     //             }
                 
     //         });
-    //      }else if (ratings == "pLow"||ratings =="pHigh"){// Based on Popularity
+    //      }else if (ratings === "pLow"||ratings ==="pHigh"){// Based on Popularity
     //         var temp = tempArrSort.sort(function(a,b){
     //             var dataA =  parseInt(a.popularity);
     //             var dataB =  parseInt(b.popularity);
-    //             if(sortParam == "pLow"){
+    //             if(sortParam === "pLow"){
     //               return dataA - dataB;  
     //             }
-    //             else if(sortParam == "pHigh"){
+    //             else if(sortParam === "pHigh"){
     //               return dataB - dataA;  
     //             }
     //         });
     //     }else{//Based on year
     //         var temp = list.filter(function(item){
     //             var tempDate = item.release_date.split("-");
-    //             return tempDate[0] == sortParam;
+    //             return tempDate[0] === sortParam;
     //         });
     //     }
         
     //     return temp;
     // }
-    return list;   
+ //   return list;   
 }
 
 export function items(state = [], action) {
@@ -178,10 +178,10 @@ export function favArr(state = {favArr: [],favArrId:[]},action){
             return {
                 ...state,
                 favArr: [...state.favArr].filter(item=>{
-                    return item.id != action.itemId.id
+                    return item.id !== action.itemId.id
                 }),
                 favArrId: [...state.favArrId].filter(item=>{
-                    return item != action.itemId.id
+                    return item !== action.itemId.id
                 })
             }; break;
         default:

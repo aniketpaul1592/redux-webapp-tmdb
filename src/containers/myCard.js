@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import './container.css';
 import SingleCard from './SingleCard'
 
-var count =0;
-
 function isSearchTerm(searchItem){
 	return function(item){
    		return !searchItem || item.title.toLowerCase().includes(searchItem.toLowerCase());
@@ -25,9 +23,8 @@ class Card extends Component{
         if (!this.props.data) { return null; }
 		return(
 			<div className="container">
-			{console.log(this.props.searchTermVal)}
 			{this.props.data.filter(isSearchTerm(this.props.searchTermVal)).map(item=>
-				<SingleCard item={item} />
+				<SingleCard key={item.id} item={item} />
 			)}
 			</div>
 		);

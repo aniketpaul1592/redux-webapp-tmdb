@@ -25,7 +25,7 @@ class SingleCard extends Component{
 	}
 	
 	render(){
-		if(this.state.test == "heart"){
+		if(this.state.test === "heart"){
 			return(
 				<div key={this.props.item.id} className="paddingCard">
 					<div className="cardTitle">{this.props.item.title}</div>
@@ -41,7 +41,7 @@ class SingleCard extends Component{
 					</div>
 				</div>
 			);
-		}else if((this.props.favMovieArray.length > 0)&&(this.props.favMovieArray.indexOf(this.props.item.id) != -1)){
+		}else if((this.props.favMovieArray.length > 0)&&(this.props.favMovieArray.indexOf(this.props.item.id) !== -1)){
 			return(
 				<div key={this.props.item.id} className="paddingCard">
 					<div className="cardTitle">{this.props.item.title}</div>

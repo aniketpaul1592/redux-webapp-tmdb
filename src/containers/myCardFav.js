@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import './container.css';
 import SingleCardFav from './SingleCardFav'
 
-var count =0;
-
 function isSearchTerm(searchItem){
 	return function(item){
    		return !searchItem || item.title.toLowerCase().includes(searchItem.toLowerCase());
@@ -22,12 +20,12 @@ class FavCard extends Component{
         if (this.props.isLoading) {
             return <p>Loading…</p>;
         }
-        if (this.props.data.length == 0) { return null; }
+        if (this.props.data.length === 0) { return null; }
 		return(
 			<div className="Favcontainer">
 			{console.log(this.props.searchTermVal)}
 			{this.props.data.filter(isSearchTerm(this.props.searchTermVal)).map(item=>
-				<SingleCardFav item={item} />
+				<SingleCardFav key= {item.id} item={item} />
 			)}
 			</div>
 		);

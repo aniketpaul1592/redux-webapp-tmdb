@@ -34,7 +34,7 @@ class Header extends Component{
 	}
 
 render(){
-	if(this.state.flag==1){	
+	if(this.state.flag===1){	
 			return(
 			<div className="headerLayoutApp">
 			<Link to="/"><img src={logo} className="logo cursorClass" alt ="" align="left"/></Link>     

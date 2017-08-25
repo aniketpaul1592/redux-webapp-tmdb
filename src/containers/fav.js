@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
 import FavCard from './myCardFav';
 import {connect} from 'react-redux';
-import {itemsFetchData,sortAsPerRatingYear} from '../actions/actionCreator';
-import Select from 'react-select';
-
-const marginSpace = {
-	marginRight: 15,
-}
 
 class Fav extends Component{
 	constructor(props){
