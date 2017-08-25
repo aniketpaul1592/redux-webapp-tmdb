@@ -6,7 +6,7 @@ import Fav from '../containers/fav.js'
 class Favourites extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="Fav">
           <Header/>
           <Fav/>
       </div>

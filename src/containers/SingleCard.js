@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {fetchFavId} from '../actions/actionCreator';
+import {fetchFavId,removeFavId} from '../actions/actionCreator';
 import FontAwesome from 'react-fontawesome';
 import {connect} from 'react-redux';
+import './container.css';
 
 class SingleCard extends Component{
 	constructor(props){
@@ -10,6 +11,12 @@ class SingleCard extends Component{
 			test:"heart-o",
 		}
 		this.setFavourites = this.setFavourites.bind(this);
+		this.removeFavourites = this.removeFavourites.bind(this);
+	}
+
+	removeFavourites(itemId){
+		this.setState({test:"heart-o"});
+		this.props.removeFavId(itemId);
 	}
 
 	setFavourites(itemId){
@@ -18,27 +25,73 @@ class SingleCard extends Component{
 	}
 	
 	render(){
-		return(
-			<div key={this.props.item.id} className="paddingCard">
-				<div className="cardTitle">{this.props.item.title}</div>
-				<div className="poster">
-					<img src = {"https://image.tmdb.org/t/p/w300/"+this.props.item.poster_path} alt=""/>
+		var tempArr = this.props.movieData.favArr.filter((item)=>{
+			return item.id;
+		})
+		 if(this.state.test == "heart"){
+			return(
+				<div key={this.props.item.id} className="paddingCard">
+					<div className="cardTitle">{this.props.item.title}</div>
+					<div className="poster">
+						<img src = {"https://image.tmdb.org/t/p/w300/"+this.props.item.poster_path} alt=""/>
+					</div>
+					<div className = "faIcons">
+						<FontAwesome className = "facebook" name='facebook-official' size='2x'/>
+						<FontAwesome className = "whatsapp" name='whatsapp' size='2x' />
+						<FontAwesome className = "twitter" 	name='twitter-square' size='2x' />
+						<FontAwesome className= "heartShape" name={this.state.test} size='2x' onClick = {() =>this.removeFavourites(this.props.item)}/>
+						<span className="Votes">Votes:{this.props.item.vote_count}</span>
+					</div>
 				</div>
-				<div className = "faIcons">
-					<FontAwesome name='facebook-official' size='2x' style ={{color:"blue"}} />
-					<FontAwesome name='whatsapp' size='2x' style ={{color:"green"}}/>
-					<FontAwesome name='twitter-square' size='2x' style ={{color:"#4099FF"}}/>
-					<FontAwesome name={this.state.test} size='2x' style ={{color:"red"},{float:"right"}} onClick = {() =>this.setFavourites(this.props.item)}/>
+			);
+		}else if(tempArr.indexOf(this.props.item.id) != -1){
+			return(
+				<div key={this.props.item.id} className="paddingCard">
+					<div className="cardTitle">{this.props.item.title}</div>
+					<div className="poster">
+						<img src = {"https://image.tmdb.org/t/p/w300/"+this.props.item.poster_path} alt=""/>
+					</div>
+					<div className = "faIcons">
+						<FontAwesome className = "facebook" name='facebook-official' size='2x'/>
+						<FontAwesome className = "whatsapp" name='whatsapp' size='2x' />
+						<FontAwesome className = "twitter" 	name='twitter-square' size='2x' />
+						<FontAwesome className= "heartShape" name="heart" size='2x' onClick = {() =>this.removeFavourites(this.props.item)}/>
+						<span className="Votes">Votes:{this.props.item.vote_count}</span>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		}else{
+			return(
+				<div key={this.props.item.id} className="paddingCard">
+					<div className="cardTitle">{this.props.item.title}</div>
+					<div className="poster">
+						<img src = {"https://image.tmdb.org/t/p/w300/"+this.props.item.poster_path} alt=""/>
+					</div>
+					<div className = "faIcons">
+						<FontAwesome className = "facebook" name='facebook-official' size='2x'/>
+						<FontAwesome className = "whatsapp" name='whatsapp' size='2x' />
+						<FontAwesome className = "twitter" 	name='twitter-square' size='2x' />
+						<FontAwesome className= "heartShape" name={this.state.test} size='2x' onClick = {() =>this.setFavourites(this.props.item)}/>
+						<span className="Votes">Votes:{this.props.item.vote_count}</span>
+					</div>
+				</div>
+			);
+		}
+		
 	}
+}
+
+function mapStateToProps(state){
+	return{
+		movieData : state.favArr,
+	};
 }
 
 function mapDispatchToProps(dispatch){
 	return {
 		fetchFavId : (itemId) => dispatch(fetchFavId(itemId)),
+		removeFavId : (itemId) => dispatch(removeFavId(itemId)),
 	};
 }
 
-export default connect(null,mapDispatchToProps)(SingleCard);
+export default connect(mapStateToProps,mapDispatchToProps)(SingleCard);

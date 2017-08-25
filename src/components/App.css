@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.Fav {
+  text-align: left;
+}
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -55,9 +59,17 @@ a:-webkit-any-link {
     margin: 0 auto;
 }
 
+.Favcontainer {
+    
+    color: black;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .paddingCard{
   display:inline-block;
-  padding: 20px;
+  padding: 37px;
   width: 300px;
   height: 375px;
   /*Position Relative*/

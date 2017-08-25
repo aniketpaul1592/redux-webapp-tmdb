@@ -24,7 +24,7 @@ class FavCard extends Component{
         }
         if (this.props.data.length == 0) { return null; }
 		return(
-			<div className="container">
+			<div className="Favcontainer">
 			{console.log(this.props.searchTermVal)}
 			{this.props.data.filter(isSearchTerm(this.props.searchTermVal)).map(item=>
 				<SingleCardFav item={item} />

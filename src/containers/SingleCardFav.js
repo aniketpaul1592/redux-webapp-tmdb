@@ -25,10 +25,11 @@ class SingleCardFav extends Component{
 					<img src = {"https://image.tmdb.org/t/p/w300/"+this.props.item.poster_path} alt=""/>
 				</div>
 				<div className = "faIcons">
-					<FontAwesome name='facebook-official' size='2x' style ={{color:"blue"}} />
-					<FontAwesome name='whatsapp' size='2x' style ={{color:"green"}}/>
-					<FontAwesome name='twitter-square' size='2x' style ={{color:"#4099FF"}}/>
-					<FontAwesome name={this.state.test} size='2x' style ={{color:"red"},{float:"right"}} onClick = {() =>this.removeFavourites(this.props.item)}/>
+					<FontAwesome className = "facebook" name='facebook-official' size='2x'/>
+					<FontAwesome className = "whatsapp" name='whatsapp' size='2x' />
+					<FontAwesome className = "twitter" 	name='twitter-square' size='2x' />
+					<FontAwesome className= "heartShape" name={this.state.test} size='2x' onClick = {() =>this.removeFavourites(this.props.item)}/>
+					<span className="Votes">Votes:{this.props.item.vote_count}</span>
 				</div>
 			</div>
 		);

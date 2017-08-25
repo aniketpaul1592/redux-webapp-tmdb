@@ -2,3 +2,30 @@
 	font-family: lobster;
 	font-size: 21px;
 }
+
+.facebook{
+	color: #3b5998;
+	float:left;
+	margin-right: 8px;
+}
+
+.whatsapp{
+	color: green;
+	float:left;
+	margin-right: 8px;
+}
+
+.twitter{
+	color:#4099FF;
+	float:left;
+	    margin-right: 8px;
+}
+
+.heartShape{
+	    float: right;
+	color:red;
+}
+
+.Votes{
+	font-size: x-large;
+}
