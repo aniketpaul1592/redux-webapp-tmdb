@@ -26,6 +26,7 @@ class Header extends Component{
 
 	hideSearchBar(){
 		this.setState({flag:0});
+		this.props.updateSearch("");
 	}
 
 	getSearchTerm(event){
