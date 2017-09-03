@@ -128,14 +128,13 @@ export function items(state = [], action) {
                       didInvalidate: true,
 
                       results:action.items.results
-                    }); break;
+                    });
         case 'SORT_RATING_AND_YEAR':   
             return Object.assign({}, state, {
                       didInvalidate: true,
 
                       sorted:sortData(state.results,action.sortParam)
                     });
-            break;
         default:
             return state;
     }
@@ -173,7 +172,7 @@ export function favArr(state = {favArr: [],favArrId:[]},action){
                 ...state,
                 favArr: [...state.favArr, action.itemId],
                 favArrId: [...state.favArr, action.itemId.id], 
-            };break;
+            };
         case 'REMOVE_FAVS':
             return {
                 ...state,
@@ -183,7 +182,7 @@ export function favArr(state = {favArr: [],favArrId:[]},action){
                 favArrId: [...state.favArrId].filter(item=>{
                     return item !== action.itemId.id
                 })
-            }; break;
+            };
         default:
             return state;
     }
